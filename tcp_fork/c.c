@@ -9,7 +9,7 @@ int main (int argc, char* argv[])
     int servPort;
     char* string;
     int len;
-    int maxLen;
+    int maxLen=256;
     char buffer[256+1];
     char* ptr = buffer;
 
@@ -41,7 +41,7 @@ int main (int argc, char* argv[])
         exit(1);
     }
     while(1){
-	printf("전송할 문자열을 입력하세요 : ");
+	printf("\n전송할 문자열을 입력하세요 : ");
 	gets(string);
 	if(strcmp(string, "quit")==0)
 	    break;
@@ -55,9 +55,10 @@ int main (int argc, char* argv[])
             len += n;
         }
         //
-        //buffer[len+1] = '/0';
-        //printf("Echoed string received: ");
+        buffer[len+1] = '/0';
+        printf("\n Echoed string received: ");
         fputs(buffer, stdout);
+        //printf("%c", ptr);
         //
         //printf("\n");
     }
