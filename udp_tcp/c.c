@@ -106,9 +106,9 @@ int main (int argc, char* argv[])
         buff_rcv[this] = '\0';
         printf("%s", buff_rcv);
 
-
+        buffer[n] = '\0';
         //
-        printf("\n Echoed string received: ");
+        printf("\n");
         fputs(buffer, stdout);
         //printf("%c", ptr);
         //

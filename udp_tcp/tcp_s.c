@@ -16,6 +16,9 @@ int main(int argc, char *argv[]) // char ** argv
     int pid;
     struct sockaddr_in clientaddr, serveraddr;
     char buf[MAXBUF];
+    char tcp[] = "TCP : ";
+    char buff_snd[MAXBUF];
+
     if (argc != 2){
 	printf("Usage : %s [port]\n", argv[0]);
 	return 1;
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]) // char ** argv
             {
                 printf("\n");
                 memset(buf, 0, MAXBUF);
-                if (read(client_sockfd, buf, MAXBUF-1) <= 0) // 데이터가 존재할 때까지 계속 읽음
+                if (read(client_sockfd, buf, MAXBUF) <= 0) // 데이터가 존재할 때까지 계속 읽음
                 {
                     close(client_sockfd);
                     exit(0);
@@ -77,7 +80,17 @@ int main(int argc, char *argv[]) // char ** argv
             	printf("received : ");
                 printf(" > %s", buf);
                 fputs("\n", stdout);
-                write(client_sockfd, buf, strlen(buf)); // echo
+
+                //문자열에 TCP 붙이기
+
+                strcat(buff_snd, tcp);
+                strcat(buff_snd, buf);
+                write(client_sockfd, buff_snd, strlen(buff_snd)); // echo
+
+                buff_snd[0] = '\0';
+                buf[0] = '\0';
+                
+                //write(client_sockfd, buf, strlen(buf)); // edho
             }
         }
         if (pid == -1) // 항상 오류는 검사해주어야 함
