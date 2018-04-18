@@ -92,14 +92,12 @@ int main (int argc, char* argv[])
 
         //TCP send
         send(tcp_s, string, strlen(string), 0);
-        printf("TCP send 성공");
         while((n = recv(tcp_s, ptr, maxLen, 0)) < 0)
         {
             //ptr += n;
             //maxLen -= n;
             len += n;
         }
-        printf("TCP recv 성공");
         //UDP send
         sendto(udp_s, string, strlen(string)+1, 0, (struct sockaddr*)&server_addr, sizeof(server_addr));
         server_addr_size = sizeof(server_addr);

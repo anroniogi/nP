@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) // char ** argv
     // 다음장에 계속
     while(1)
     {
-	printf(" ");
+	printf("\n");
         // 클라이언트의 연결을 받아들임
         client_sockfd = accept(server_sockfd, (struct sockaddr *)&clientaddr, &client_len);
         if (client_sockfd == -1)  // 항상 오류는 검사해주어야 함
@@ -67,15 +67,16 @@ int main(int argc, char *argv[]) // char ** argv
             getchar();
             while(1)
             {
-                printf(" ");
+                printf("\n");
                 memset(buf, 0, MAXBUF);
                 if (read(client_sockfd, buf, MAXBUF-1) <= 0) // 데이터가 존재할 때까지 계속 읽음
                 {
                     close(client_sockfd);
                     exit(0);
                 }
-        	printf("received : ");
+            	printf("received : ");
                 printf(" > %s", buf);
+                fputs("\n", stdout);
                 write(client_sockfd, buf, strlen(buf)); // echo
             }
         }
