@@ -63,9 +63,11 @@ int main(int argc, char *argv[]) // char ** argv
         pid = fork();
         if (pid == 0) // 자식 프로세스인 경우 다음 문장들을 수행하고, 부모인 경우 계속하여 while() 수행
         {
+            printf("getchar : ");
+            getchar();
             while(1)
             {
-        	printf(" ");
+                printf(" ");
                 memset(buf, 0, MAXBUF);
                 if (read(client_sockfd, buf, MAXBUF-1) <= 0) // 데이터가 존재할 때까지 계속 읽음
                 {

@@ -55,7 +55,6 @@ int main (int argc, char* argv[])
             len += n;
         }
         //
-        buffer[len+1] = '/0';
         printf("\n Echoed string received: ");
         fputs(buffer, stdout);
         //printf("%c", ptr);
