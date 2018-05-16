@@ -40,18 +40,27 @@ int main (int argc, char* argv[])
         exit(1);
     }
     //
-    send(s, string, strlen(string), 0);
-    while((n = recv(s, ptr, maxLen, 0)) < 0)
-    {
-        //ptr += n;
-        //maxLen -= n;
-        len += n;
+    while(1){
+        printf("보낼 문자열을 입력하세요 : ");
+        gets(buffer);
+        if(strcmp(string, "quit")==0)
+            break;
+
+        send(s, string, strlen(string), 0);
+        while((n = recv(s, ptr, maxLen, 0)) > 0)
+        {
+            //ptr += n;
+            //maxLen -= n;
+            len += n;
+        }
+        //
+        //buffer[len+1] = '/0';
+        //printf("Echoed string received: ");
+        fputs(buffer, stdout);
+        printf("\n");
     }
-    //
-    //buffer[len+1] = '/0';
-    //printf("Echoed string received: ");
-    fputs(buffer, stdout);
-    //
+
+//
     //printf("\n");
     close(s);
     //

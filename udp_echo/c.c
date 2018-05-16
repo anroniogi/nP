@@ -15,6 +15,11 @@ int main(int argc, char **argv)
    char string[256];
    int run=1;
 
+   if(argc < 2){
+       perror("전송할 주소를 인자로 넣어주세요");
+       exit(1);
+   }
+
    sock  = socket( PF_INET, SOCK_DGRAM, 0);
    
    if( -1 == sock)
@@ -26,7 +31,11 @@ int main(int argc, char **argv)
    memset( &server_addr, 0, sizeof( server_addr));
    server_addr.sin_family     = AF_INET;
    server_addr.sin_port       = htons(PORT_NUMBER);
+<<<<<<< HEAD
    server_addr.sin_addr.s_addr= inet_addr("210.115.43.150");
+=======
+   server_addr.sin_addr.s_addr= inet_addr(argv[1]);
+>>>>>>> d9d44c4becfb62f650add1a339b5f7530844837f
    while(run){
        printf("\n전송할 문자열을 입력하세요 : ");
        gets(string);
