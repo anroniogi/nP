@@ -14,22 +14,22 @@ int main (int argc, char* argv[])
     char* ptr = buffer;
     struct sockaddr_in servAddr;
     //
-    /*
+    
     if(argc !=4)
     {
         printf("ERROR : three arguments are needed");
         exit(1);
     }
-    */
-    /*
+   
+    
     servName = argv[1];
     servPort = atoi(argv[2]);
     string = argv[3];
-    */
-    servName = 210.115.43.154;
-    servPort = atoi(50001);
+    /*
+    servName = "210.115.43.150";
+    servPort = atoi("50001");
     string = "send string";
-    
+    */
     memset(&servAddr, 0, sizeof(servAddr));
     servAddr.sin_family = AF_INET;
     inet_pton(AF_INET, servName, &servAddr.sin_addr);
