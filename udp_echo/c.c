@@ -26,7 +26,7 @@ int main(int argc, char **argv)
    memset( &server_addr, 0, sizeof( server_addr));
    server_addr.sin_family     = AF_INET;
    server_addr.sin_port       = htons(PORT_NUMBER);
-   server_addr.sin_addr.s_addr= inet_addr("127.0.0.1");
+   server_addr.sin_addr.s_addr= inet_addr("210.115.43.150");
    while(run){
        printf("\n전송할 문자열을 입력하세요 : ");
        gets(string);
