@@ -27,6 +27,9 @@ int   main( void)
     int n;
     int len=0;
     int test;
+    int opts, cpyopts;
+
+    int check1, check2;
 
 
     //TCP socket 설정
@@ -87,26 +90,35 @@ int   main( void)
         printf("TCP accept ERROR");
         exit(1);
     }
+    
+    //TCP non-block 설정
+    fcntl(s, F_SETFL, O_NONBLOCK);
+    /*
+    opts = fcntl(s, f_GETFL);
+    cpyopts = opts;
+    opts = (opts | O_NONBLOCK);
+    fcntl(s, F_SETFL, opts);
+    */
 
- 
+    printf("\n");
+
     while(1)
     {
-       printf("\n");
-
 
        //UDP
-       recvfrom( sock, buff_rcv, BUFF_SIZE, 0 , (struct sockaddr*)&client_addr, &client_addr_size);
-       printf( "UDP : receive: %s", buff_rcv);
-       sendto(sock, buff_rcv, strlen(buff_rcv)+1, 0, (struct sockaddr*)&client_addr, sizeof( client_addr)); 
-        printf("\n");
+        if((check1 = recvfrom( sock, buff_rcv, BUFF_SIZE, MSG_DONTWAIT , (struct sockaddr*)&client_addr, &client_addr_size)) > 0){
+           printf( "UDP : receive: %s", buff_rcv);
+           sendto(sock, buff_rcv, strlen(buff_rcv)+1, 0, (struct sockaddr*)&client_addr, sizeof( client_addr)); 
+            printf("\n");
+        }
         
-        while((n = recv(s, ptr, maxLen, 0)) > 0){
-            printf("TCP : received:");
+        if((n = recv(s, ptr, maxLen, 0)) > 0){
+
             len += n;
-            fputs(buffer, stdout);
+            printf("TCP : received: %s", buffer);
             test = send(s, ptr, len, 0);
             len=0;
-            break;
+            printf("\n");
         }
 
 
