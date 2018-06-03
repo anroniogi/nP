@@ -104,20 +104,25 @@ int   main( void)
 
     while(1)
     {
-
-       //UDP
+        //UDP
         if((check1 = recvfrom( sock, buff_rcv, BUFF_SIZE, MSG_DONTWAIT , (struct sockaddr*)&client_addr, &client_addr_size)) > 0){
            printf( "UDP : receive: %s", buff_rcv);
            sendto(sock, buff_rcv, strlen(buff_rcv)+1, 0, (struct sockaddr*)&client_addr, sizeof( client_addr)); 
             printf("\n");
         }
-        
+        //TCP
         if((n = recv(s, ptr, maxLen, 0)) > 0){
 
+            ptr += n;
+            //maxLen -= n;
             len += n;
             printf("TCP : received: %s", buffer);
             test = send(s, ptr, len, 0);
             len=0;
+            ptr = &buffer[0];
+            for(int i=0; i<256; ++i){
+                buffer[i] = '\0';
+            }
             printf("\n");
         }
 

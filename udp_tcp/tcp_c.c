@@ -24,7 +24,7 @@ int main (int argc, char* argv[])
     
     servName = argv[1];
     servPort = atoi(argv[2]);
-    string = argv[3];
+    //string = argv[3];
     /*
     servName = "210.115.43.150";
     servPort = atoi("50001");
@@ -50,10 +50,10 @@ int main (int argc, char* argv[])
     while(1){
         printf("보낼 문자열을 입력하세요 : ");
         gets(buffer);
-        if(strcmp(string, "quit")==0)
+        if(strcmp(ptr, "quit")==0)
             break;
-
-        send(s, string, strlen(string), 0);
+        n=-1;
+        send(s, ptr, strlen(ptr), 0);
         while((n = recv(s, ptr, maxLen, 0)) > 0)
         {
             //ptr += n;
