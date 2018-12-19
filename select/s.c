@@ -106,6 +106,7 @@ int   main( void)
         FD_SET(sock, &readfds);
         if(s>0){
             FD_SET(s, &readfds);
+            maxfd = s+1;
         }
         fd_num = select(maxfd, &readfds, NULL, NULL, NULL);
 
@@ -115,6 +116,8 @@ int   main( void)
             if((s=accept(sock2, &clntAddr, &clntAddrlen))<0){
                 printf("TCP accept ERROR");
                 exit(1);
+            } else{
+                printf("TCP connected!\n");
             }
 
             //TCP non-block 설정
@@ -138,14 +141,16 @@ int   main( void)
         if(FD_ISSET(s, &readfds)){
 
             //TCP non-block 설정
-            fcntl(s, F_SETFL, O_NONBLOCK);
+            //fcntl(s, F_SETFL, O_NONBLOCK);
             printf("\n");
 
-            if((n=recv(s,ptr,maxLen,0))>0){
+//            if(n=recv(s,ptr,maxLen,0)>0){
+            if(n=recv(s, buffer, maxLen, 0)>0){
                 ptr += n;
                 len += n;
                 printf( "[TCP] : %s", buffer);
                 test = send(s, ptr, len, 0);
+                //test = send(s, buffer, len, 0);
                 len = 0;
                 ptr = &buffer[0];
                 for(int i = 0; i<256; ++i){
@@ -168,10 +173,8 @@ int   main( void)
 
 
         }
-        
-        close(sock);
-        close(s);
-
-
     }
+    close(sock);
+    close(s);
+
 }

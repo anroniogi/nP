@@ -9,8 +9,11 @@ int main (int argc, char* argv[])
     int servPort;
     char* string;
     int len;
-    int maxLen;
+    int maxLen=256;
+    int test;
     char buffer[256+1];
+    char buffer_rcv[256];
+    char* ptr_rcv = buffer_rcv;
     char* ptr = buffer;
     struct sockaddr_in servAddr;
     //
@@ -53,17 +56,20 @@ int main (int argc, char* argv[])
         if(strcmp(ptr, "quit")==0)
             break;
         n=-1;
-        send(s, ptr, strlen(ptr), 0);
-        while((n = recv(s, ptr, maxLen, 0)) > 0)
+//        test = send(s, ptr, strlen(ptr), 0);
+        test = send(s, ptr, strlen(ptr)+1, 0);
+
+        while(n = recv(s, ptr_rcv, maxLen, 0) > 0)
         {
             //ptr += n;
             //maxLen -= n;
             len += n;
+            n=-1;
         }
         //
         //buffer[len+1] = '/0';
         //printf("Echoed string received: ");
-        fputs(buffer, stdout);
+        fputs(buffer_rcv, stdout);
         printf("\n");
     }
 
